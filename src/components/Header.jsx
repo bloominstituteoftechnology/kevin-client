@@ -7,7 +7,7 @@ const Header = ({ title }) => {
   return (
     <Box p={10}>
     <HStack width="100%">
-      <Heading size='2xl'>{title}</Heading>
+      <Heading size='xl'>{title}</Heading>
       <Spacer />
       <AuthenticationButton />
     </HStack>
