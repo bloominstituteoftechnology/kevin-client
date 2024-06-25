@@ -5,11 +5,11 @@ const AuthenticationButton = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return isAuthenticated ? (
-    <Button colorScheme="green" variant='ghost' onClick={() => logout({ logoutParams: { returnTo: window.location.origin }})}>
+    <Button colorScheme="teal" variant='ghost' onClick={() => logout({ logoutParams: { returnTo: window.location.origin }})}>
       Log Out
     </Button>
   ) : (
-    <Button colorScheme="green" variant='ghost' onClick={() => loginWithRedirect()}>
+    <Button colorScheme="teal" variant='ghost' onClick={() => loginWithRedirect()}>
       Log In
     </Button>
   );
