@@ -1,6 +1,5 @@
-// MessageBubble.js
 import React from 'react';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Box } from '@chakra-ui/react';
 
 const MessageBubble = ({ color, message, sender }) => {
   return (
@@ -13,10 +12,13 @@ const MessageBubble = ({ color, message, sender }) => {
         color="white"
         p={3}
         borderRadius="lg"
-        maxW="80%"
+        maxW="90%"
         my={2}
+        wordBreak="break-word"
       >
-        <Text>{message}</Text>
+        <Box fontSize="xs"> 
+          {message}
+        </Box>
       </Flex>
     </Flex>
   );

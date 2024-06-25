@@ -13,6 +13,7 @@ const ChatInput = ({ newMessage, handleInputChange, handleSendMessage, loading }
           onChange={handleInputChange}
           variant="filled"
           borderRadius="lg"
+          _focus={{ borderColor: 'teal.400', backgroundColor: 'gray.900' }} 
         />
         <InputRightElement width="4.5rem">
           {loading ? (
