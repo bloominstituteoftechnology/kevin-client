@@ -1,4 +1,3 @@
-// Chat.js
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -11,6 +10,7 @@ import MessageBubble from '../components/MessageBubble';
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
   const bottomRef = useRef(null);  // Reference to automatically scroll to bottom of messages
@@ -24,6 +24,7 @@ const Chat = () => {
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
+    setIsLoading(true); // Set loading state to true when sending message
     const userMessage = {
       id: messages.length + 1,
       text: newMessage,
@@ -55,6 +56,7 @@ const Chat = () => {
     } catch (error) {
       console.error('Error fetching response:', error);
     }
+    setIsLoading(false); // Set loading state to false after receiving response
     setNewMessage('');
   };
 
@@ -72,6 +74,7 @@ const Chat = () => {
           newMessage={newMessage}
           handleInputChange={(e) => setNewMessage(e.target.value)}
           handleSendMessage={handleSendMessage}
+          loading={isLoading} // Pass loading state to ChatInput
         />
       </Flex>
     </Box>
