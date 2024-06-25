@@ -9,7 +9,7 @@ const AuthenticationButton = () => {
       Log Out
     </Button>
   ) : (
-    <Button onClick={() => loginWithRedirect()}>
+    <Button colorScheme="green" variant='ghost' onClick={() => loginWithRedirect()}>
       Log In
     </Button>
   );
