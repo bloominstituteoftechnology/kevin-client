@@ -6,11 +6,13 @@ import Header from '../components/Header';
 import { Box, Flex } from '@chakra-ui/react';
 import ChatInput from '../components/ChatInput';
 import ChatHistory from '../components/ChatHistory';
+import Sidebar from '../components/Sidebar';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [projects, setProjects] = useState([]); // Added projects state
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
 
@@ -22,7 +24,7 @@ const Chat = () => {
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
-    setIsLoading(true); // Set loading state to true when sending message
+    setIsLoading(true);
     const userMessage = {
       id: messages.length + 1,
       text: newMessage,
@@ -54,23 +56,30 @@ const Chat = () => {
     } catch (error) {
       console.error('Error fetching response:', error);
     }
-    setIsLoading(false); // Set loading state to false after receiving response
+    setIsLoading(false);
     setNewMessage('');
   };
 
+  const handleNewProject = (name, url, branch) => {
+    setProjects([...projects, { name, url, branch }]);
+  };
+
   return (
-    <Box position="relative" p={5} h="100vh">
-      <Header title="Chat" />
-      <ChatHistory messages={messages} />
-      <Flex position="absolute" bottom="0" left="0" right="0" justifyContent="center" p={4}>
-        <ChatInput
-          newMessage={newMessage}
-          handleInputChange={(e) => setNewMessage(e.target.value)}
-          handleSendMessage={handleSendMessage}
-          loading={isLoading} // Pass loading state to ChatInput
-        />
-      </Flex>
-    </Box>
+    <Flex h="100vh">
+      <Sidebar projects={projects} onNewProject={handleNewProject} />
+      <Box flex="1" position="relative" p={5}>
+        <Header title="Chat" />
+        <ChatHistory messages={messages} />
+        <Flex position="absolute" bottom="0" left="0" right="0" justifyContent="center" p={4}>
+          <ChatInput
+            newMessage={newMessage}
+            handleInputChange={(e) => setNewMessage(e.target.value)}
+            handleSendMessage={handleSendMessage}
+            loading={isLoading}
+          />
+        </Flex>
+      </Box>
+    </Flex>
   );
 };
 

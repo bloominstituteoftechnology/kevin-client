@@ -13,13 +13,13 @@ const ChatInput = ({ newMessage, handleInputChange, handleSendMessage, loading }
           onChange={handleInputChange}
           variant="filled"
           borderRadius="lg"
-          _focus={{ borderColor: 'teal.400', backgroundColor: 'gray.900' }} 
+          _focus={{ borderColor: 'blue.300', backgroundColor: 'gray.900' }} 
         />
         <InputRightElement width="4.5rem">
           {loading ? (
             <Spinner size="sm" />
           ) : (
-            <Button variant='outline' colorScheme='teal' borderRadius="lg" size="sm" onClick={handleSendMessage}>
+            <Button colorScheme='blue' borderRadius="lg" size="sm" onClick={handleSendMessage}>
               Send
             </Button>
           )}

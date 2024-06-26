@@ -15,7 +15,7 @@ const Home = () => {
   }, [isAuthenticated, user, navigate]);
 
   return (
-    <Box>
+    <Box p={5}>
       <Header title="Kevin" />
     </Box>
   );
