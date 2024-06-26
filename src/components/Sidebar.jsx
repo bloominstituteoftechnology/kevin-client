@@ -34,7 +34,7 @@ const Sidebar = ({ projects, onNewProject }) => {
 
   return (
     <Box w="300px" p={5} h="100vh" borderRight=".5px solid" borderColor="blue.300">
-      <Button colorScheme="blue" mb={4} onClick={onOpen}>
+      <Button size="sm" colorScheme="blue" mb={4} onClick={onOpen}>
         New Project
       </Button>
       <VStack align="stretch" spacing={3}>

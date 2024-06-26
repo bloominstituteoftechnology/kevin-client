@@ -5,7 +5,7 @@ import AuthenticationButton from './AuthenticationButton';
 const Header = ({ title }) => {
 
   return (
-    <Box p={2}>
+    <Box>
     <HStack width="100%">
       <Heading size='lg'>{title}</Heading>
       <Spacer />
