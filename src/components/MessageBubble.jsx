@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 
 const MessageBubble = ({ color, message, sender }) => {
   return (
@@ -12,11 +12,11 @@ const MessageBubble = ({ color, message, sender }) => {
         color="white"
         p={3}
         borderRadius="lg"
-        maxW="90%"
+        maxW="70%"
         my={2}
         wordBreak="break-word"
       >
-        <Box fontSize="xs"> 
+        <Box fontSize="xs">
           {message}
         </Box>
       </Flex>

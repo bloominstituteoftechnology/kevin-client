@@ -12,7 +12,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [projects, setProjects] = useState([]); // Added projects state
+  const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
 
@@ -64,12 +64,44 @@ const Chat = () => {
     setProjects([...projects, { name, url, branch }]);
   };
 
+  const handleTrigger = async (endpoint, messageId) => {
+    setIsLoading(true);
+    const message = messages.find(msg => msg.id === messageId && msg.sender === 'ai');
+    if (!message) {
+      setIsLoading(false);
+      return;
+    }
+
+    const requestBody = {
+      code: message.text
+    };
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URI}${endpoint}`, requestBody);
+      const triggerResponse = response.data;
+      if (triggerResponse && triggerResponse.output && triggerResponse.output.content) {
+        const triggerMessage = {
+          id: messages.length + 1,
+          text: triggerResponse.output.content,
+          color: 'gray.700',
+          sender: 'ai'
+        };
+        setMessages(prevMessages => [...prevMessages, triggerMessage]);
+      } else {
+        console.error("Received an unexpected response structure:", triggerResponse);
+      }
+    } catch (error) {
+      console.error(`Error fetching response from ${endpoint}:`, error);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <Flex h="100vh">
       <Sidebar projects={projects} onNewProject={handleNewProject} />
       <Box flex="1" position="relative" p={5}>
         <Header title="Chat" />
-        <ChatHistory messages={messages} />
+        <ChatHistory messages={messages} onTrigger={handleTrigger} isLoading={isLoading} />
         <Flex position="absolute" bottom="0" left="0" right="0" justifyContent="center" p={4}>
           <ChatInput
             newMessage={newMessage}
