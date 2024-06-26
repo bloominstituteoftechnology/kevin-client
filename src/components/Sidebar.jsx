@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Button, VStack, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, VStack, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
+import Project from './Project';
 
 const Sidebar = ({ projects, onNewProject }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -11,12 +12,19 @@ const Sidebar = ({ projects, onNewProject }) => {
 
   const handleSave = () => {
     if (isFormValid) {
-      onNewProject(name, url, branch);
+      onNewProject([...projects, { name, url, branch }]); // Ensure the new project is added to the projects array
       setName('');
       setUrl('');
       setBranch('');
       onClose();
     }
+  };
+
+  const handleUpdateProject = (index, updatedProject) => {
+    const updatedProjects = projects.map((project, idx) => 
+      idx === index ? updatedProject : project
+    );
+    onNewProject(updatedProjects);
   };
 
   return (
@@ -26,22 +34,13 @@ const Sidebar = ({ projects, onNewProject }) => {
       </Button>
       <VStack align="stretch" spacing={3}>
         {projects.map((project, index) => (
-          <Box
+          <Project
             key={index}
-            p={3}
-            shadow="lg"
-            borderRadius="lg"
-            bg="gray.700"
-            borderLeft="4px solid"
-            borderRight=".5px solid"
-            borderTop=".5px solid"
-            borderBottom=".5px solid"
-            borderColor="blue.300"
-          >
-            <Text fontWeight="bold" color="white">{project.name}</Text>
-            <Text fontSize="sm" color="gray.300">{project.url}</Text>
-            <Text fontSize="sm" color="gray.300">{project.branch}</Text>
-          </Box>
+            name={project.name}
+            url={project.url}
+            branch={project.branch}
+            onUpdate={(updatedProject) => handleUpdateProject(index, updatedProject)}
+          />
         ))}
       </VStack>
 

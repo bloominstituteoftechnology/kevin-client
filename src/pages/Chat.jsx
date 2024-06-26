@@ -60,8 +60,8 @@ const Chat = () => {
     setNewMessage('');
   };
 
-  const handleNewProject = (name, url, branch) => {
-    setProjects([...projects, { name, url, branch }]);
+  const handleNewProject = (updatedProjects) => {
+    setProjects(updatedProjects);
   };
 
   const handleTrigger = async (endpoint, messageId) => {
