@@ -35,7 +35,7 @@ const ChatHistory = ({ messages, onTrigger, isLoading }) => {
           )}
         </Box>
       ))}
-      <div ref={bottomRef} />  // Element to auto-scroll to
+      <div ref={bottomRef} />
     </VStack>
   );
 };

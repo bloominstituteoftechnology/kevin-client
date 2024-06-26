@@ -27,6 +27,11 @@ const Sidebar = ({ projects, onNewProject }) => {
     onNewProject(updatedProjects);
   };
 
+  const handleDeleteProject = (index) => {
+    const updatedProjects = projects.filter((_, idx) => idx !== index);
+    onNewProject(updatedProjects);
+  };
+
   return (
     <Box w="300px" p={5} h="100vh" borderRight=".5px solid" borderColor="blue.300">
       <Button colorScheme="blue" mb={4} onClick={onOpen}>
@@ -40,6 +45,7 @@ const Sidebar = ({ projects, onNewProject }) => {
             url={project.url}
             branch={project.branch}
             onUpdate={(updatedProject) => handleUpdateProject(index, updatedProject)}
+            onDelete={() => handleDeleteProject(index)}
           />
         ))}
       </VStack>
